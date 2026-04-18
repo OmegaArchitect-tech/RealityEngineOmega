@@ -1,0 +1,30 @@
+RealityEngineOmega v1.1 - The 4D Render Renaissance Catalyst Update
+================================================================================
+DATE: 2026-04-18
+TYPE: Architectural Feature Patch (V3 -> V1.1)
+================================================================================
+
+OVERVIEW:
+This patch elevates RealityEngineOmega from a rigid physics adjudicator to a true 4D simulation substrate, addressing all remaining architectural gaps outlined in the V3 Master Evaluation Report. The engine now supports rendering hooks, true hardware entropy, and local potential energy fields.
+
+CHANGELOG:
+
+1. IMPLEMENTED: Render Data Interface (GetSimulationState)
+   - Added `FSimulationState` USTRUCT to expose core thermodynamic and cosmological variables to the Unreal Engine rendering thread.
+   - Added `GetSimulationState()` as a BlueprintCallable function.
+   - Allows external volumetric renderers (e.g., temporal NeRFs, fluid simulations) to actively poll `TotalSystemEntropy` and `UniversalScaleFactor_A` per-frame.
+
+2. RESOLVED: A-01 Advisory (Free-Particle Hamiltonian)
+   - Upgraded `FQuantumGrid` to include `TArray<double> PotentialEnergyV`.
+   - The Schrödinger propagator (`UpdateSchrodingerEquation`) now calculates phase shifts incorporating localized potential energy rather than assuming an idealized free-particle vacuum.
+
+3. IMPLEMENTED: Hardware TRNG Foundation
+   - Replaced standard PRNG (`FMath::FRand`) in the KPZ Gaussian Noise generator with `HardwareTRNG()`.
+   - Currently seeds entropy using ultra-high-frequency CPU cycle fluctuations (`FPlatformTime::Cycles64()`).
+   - Lays the exact pipeline architecture required to swap to NVML/ADL GPU thermal/voltage readings for literal hardware-thermodynamic quantum randomness.
+
+4. ARCHITECTURE PREP: Localized Spacetime Curvature
+   - Introduced `LocalCurvatureField` (TArray<double>) and `CurvatureGridSize` memory allocation in the subsystem.
+   - Prepares the engine to deprecate the global scalar `UniversalScaleFactor_A` in v1.2, paving the way for mass injections to violently and accurately warp local spacetime per the original design intent.
+
+STATUS: COMPILES. LIVE. RENAISSANCE-READY.
